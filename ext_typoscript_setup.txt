@@ -1,0 +1,3 @@
+plugin.tx_simulatebe_pi1{
+  allow = 1
+}
