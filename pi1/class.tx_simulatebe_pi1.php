@@ -34,7 +34,7 @@ require_once (PATH_t3lib.'class.t3lib_beuserauth.php');
 require_once (PATH_tslib.'class.tslib_feuserauth.php');
 require_once(PATH_tslib."class.tslib_pibase.php");
 
-class tx_simulatebe_pi1 extends tslib_pibase {
+class tx_simulatebe_pi1 extends t3lib_userAuth {
 	var $prefixId = "tx_simulatebe_pi1";		// Same as class name
 	var $scriptRelPath = "pi1/class.tx_simulatebe_pi1.php";	// Path to this script relative to the extension dir.
 	var $extKey = "simulatebe";	// The extension key.
