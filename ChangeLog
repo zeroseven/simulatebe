@@ -1,6 +1,7 @@
 2011-01-28  Christopher  <chrissitopher@gmx.de>
 
-	* Fixed bug #9578: Class tx_simulatebe_pi1 should extend t3lib_userAuth (thanks to Björn Pedersen)
+	* Fixed bug #9578: Class tx_simulatebe_pi1 should extend t3lib_userAuth (thanks to BjÃ¶rn Pedersen)
+	* Fixed bug #11980: Hardcoded label "Simulate Backend User" when editing a BE User
 
 2010-06-28 Sonja Scholz <ss@cabag.ch>
 	* version 2.0.0

@@ -3,7 +3,7 @@ if (!defined ("TYPO3_MODE")) 	die ("Access denied.");
 $tempColumns = Array (
 	"tx_simulatebe_beuser" => Array (		
 		"exclude" => 1,		
-		"label" => "LLL:EXT:simulatebe/locallang_db.php:fe_users.tx_simulatebe_beuser",		
+		"label" => "LLL:EXT:simulatebe/locallang_db.xml:fe_users.tx_simulatebe_beuser",		
 		"config" => Array (
 			"type" => "select",	
 			"items" => Array (
@@ -24,11 +24,11 @@ t3lib_extMgm::addTCAcolumns("fe_users",$tempColumns,1);
 t3lib_extMgm::addToAllTCAtypes("fe_users","--div--;LLL:EXT:simulatebe/locallang_db.xml:fe_users.tx_simulatebe,tx_simulatebe_beuser;;;;1-1-1");
 
 $tempColumns = Array (
-	"tx_simulatebe_feuserusername" => Array (		
-		"exclude" => 1,		
-		"label" => "LLL:EXT:simulatebe/locallang_db.php:be_users.tx_simulatebe_feuserusername",		
+	"tx_simulatebe_feuserusername" => Array (
+		"exclude" => 1,
+		"label" => "LLL:EXT:simulatebe/locallang_db.xml:be_users.tx_simulatebe_feuserusername",
 		"config" => Array (
-			"type" => "input",	
+			"type" => "input",
 			"size" => 30,
 		)
 	),
