@@ -1,7 +1,8 @@
-2011-01-28  Christopher  <chrissitopher@gmx.de>
+2011-01-28  Christopher Stelmaszyk  <chrissitopher@gmx.de>
 
 	* Fixed bug #9578: Class tx_simulatebe_pi1 should extend t3lib_userAuth (thanks to Björn Pedersen)
 	* Fixed bug #11980: Hardcoded label "Simulate Backend User" when editing a BE User
+	* Updated em_conf for release of next version
 
 2010-06-28 Sonja Scholz <ss@cabag.ch>
 	* version 2.0.0
@@ -24,3 +25,6 @@
 2010-04-20 Sonja Scholz <ss@cabag.ch>
 	* marked extension as modified 11.0.0
 	* added comments to changes of Jonas Duebi in class.tx_simulatebe_pi1.php
+
+2004-09-13  Mads Brunn  <brunn@mail.dk>
+	* Code of the extension created
