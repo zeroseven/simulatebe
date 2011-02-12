@@ -11,14 +11,14 @@
 		<languageKey index="default" type="array">
 			<label index="fe_users.tx_simulatebe_beuser">Related Backend User</label>
 			<label index="fe_users.tx_simulatebe">Simulate Backend User</label>
-			<label index="be_users.tx_simulatebe_feuserusername">Username of the Frontend User</label>
-			<label index="be_users.tx_simulatebe">Simulate Frontend User</label>
+			<label index="be_users.tx_simulatebe_feuserusername">Username of the Frontend User to simulate</label>
+			<label index="be_users.tx_simulatebe">Advanced</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="fe_users.tx_simulatebe_beuser">Entsprechender Backend-Benutzer</label>
 			<label index="fe_users.tx_simulatebe">Simuliere Backend-Benutzer</label>
-			<label index="be_users.tx_simulatebe_feuserusername">Benutzername des entsprechenden Frontend-Benutzers</label>
-			<label index="be_users.tx_simulatebe">Simuliere Frontend-Benutzer</label>
+			<label index="be_users.tx_simulatebe_feuserusername">Benutzername des zu simulierenden Frontend-Benutzers</label>
+			<label index="be_users.tx_simulatebe">Erweitert</label>
 		</languageKey>
 	</data>
 </T3locallang>
