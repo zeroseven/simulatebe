@@ -1,6 +1,7 @@
 2011-02-12  Christopher Stelmaszyk  <chrissitopher@gmx.de>
 
 	* Fixed bug #11979: Field tx_simulatebe_feuserusername is not defined correctly
+	* Fixed bug #9348: Fix Naming of tabs in the Backend User Settings
 
 2011-02-04  Sonja Scholz <ss@cabag.ch>
 
