@@ -48,12 +48,12 @@ class tx_simulatebe_pi1 extends t3lib_userAuth {
 			// $GLOBALS['TSFE']->beUserLogin is 0, if the user has no access to the current page,
 			// but is logged in to the BE, this leads to an endless loop.
 		$BE_USER = '';
-			// If the backend cookie is set, we proceed and checks if a backend user is logged in.
+			// If the backend cookie is set, we proceed and check if a backend user is logged in.
 		if ($_COOKIE['be_typo_user']) {
 				// New backend user object
 			$BE_USER = t3lib_div::makeInstance('t3lib_tsfeBeUserAuth');
 			$BE_USER->OS = TYPO3_OS;
-			$BE_USER->lockIP = $TYPO3_CONF_VARS['BE']['lockIP'];
+			$BE_USER->lockIP = $GLOBALS['TYPO3_CONF_VARS']['BE']['lockIP'];
 				// Object is initialized
 			$BE_USER->start();
 			$BE_USER->unpack_uc('');
