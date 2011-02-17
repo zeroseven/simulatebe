@@ -1,0 +1,10 @@
+# Activate simulatebe
+plugin.tx_simulatebe_pi1 {
+    allow = 1
+}
+
+# Activate the Admin Panel
+page.config.admPanel = 1
+
+# Include simulatebe
+page.headerData.9586 < plugin.tx_simulatebe_pi1

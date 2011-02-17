@@ -1,3 +1,9 @@
+2011-02-17  Christopher Stelmaszyk  <chrissitopher@gmx.de>
+
+	* !!! Fixed bug #9126: Include Code for TypoScript Setup as Static File
+		  You must add the Static Template provided by Simulatebe to your TypoScript Template!
+		  Otherwise Simulatebe will stop working, because it won't be activated anymore.
+
 2011-02-12  Christopher Stelmaszyk  <chrissitopher@gmx.de>
 
 	* Fixed bug #11979: Field tx_simulatebe_feuserusername is not defined correctly
