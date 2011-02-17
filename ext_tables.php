@@ -41,4 +41,7 @@ t3lib_div::loadTCA('be_users');
 t3lib_extMgm::addTCAcolumns('be_users', $tempColumns, 1);
 t3lib_extMgm::addToAllTCAtypes('be_users', '--div--;LLL:EXT:simulatebe/locallang_db.xml:be_users.tx_simulatebe,tx_simulatebe_feuserusername;;;;1-1-1');
 
+	// Add static template
+t3lib_extMgm::addStaticFile($_EXTKEY, 'static/', 'BE Login Simulation for FE Users');
+
 ?>
