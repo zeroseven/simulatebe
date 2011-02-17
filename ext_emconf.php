@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext "simulatebe".
 #
-# Auto generated 16-02-2011 13:44
+# Auto generated 17-02-2011 17:13
 #
 # Manual updates:
 # Only the data in the array - everything else is removed by next
@@ -44,7 +44,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:10:{s:9:"ChangeLog";s:4:"b34b";s:11:"Licence.txt";s:4:"3555";s:12:"ext_icon.gif";s:4:"a696";s:17:"ext_localconf.php";s:4:"1ca8";s:14:"ext_tables.php";s:4:"3366";s:14:"ext_tables.sql";s:4:"5c1f";s:24:"ext_typoscript_setup.txt";s:4:"c24f";s:16:"locallang_db.xml";s:4:"7990";s:14:"doc/manual.sxw";s:4:"383d";s:31:"pi1/class.tx_simulatebe_pi1.php";s:4:"9b90";}',
+	'_md5_values_when_last_written' => 'a:10:{s:9:"ChangeLog";s:4:"68eb";s:11:"Licence.txt";s:4:"3555";s:12:"ext_icon.gif";s:4:"a696";s:17:"ext_localconf.php";s:4:"e246";s:14:"ext_tables.php";s:4:"4172";s:14:"ext_tables.sql";s:4:"5c1f";s:16:"locallang_db.xml";s:4:"de49";s:14:"doc/manual.sxw";s:4:"85cc";s:31:"pi1/class.tx_simulatebe_pi1.php";s:4:"ab70";s:16:"static/setup.txt";s:4:"c2d0";}',
 	'suggests' => array(
 	),
 );
