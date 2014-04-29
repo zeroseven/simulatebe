@@ -3,8 +3,8 @@ plugin.tx_simulatebe_pi1 {
     allow = 1
 }
 
-# Activate the Admin Panel
-page.config.admPanel = 1
+# admin panel ensures that the BE_USER is loaded
+config.admPanel = 1
 
 # Include simulatebe
 page.headerData.9586 < plugin.tx_simulatebe_pi1
