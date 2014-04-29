@@ -1,3 +1,35 @@
+2014-04-29 Nils Blattner <nb@cabag.ch>
+	* version 2.2.0
+	* [FEATURE] added 6.2 compatibility
+	* [FEATURE] merged different branches
+
+2013-08-28 Tizian Schmidlin <st@cabag.ch>
+	* version 2.1.4
+	* [MAINTENANCE] added TYPO3 dependency to match 4.5.0-6.1.99
+	* [MAINTENANCE] added authors Jonas Felix and Tizian Schmidlin
+
+2013-05-21 Tizian Schmidlin <st@cabag.ch>
+	* version 2.1.2
+	* added em_conf option simulatebeOnLinkParameter
+	* added em_conf option simlatebeLinkParameter
+	* created ext_conf_template.txt
+
+2013-04-12 Tizian Schmidlin <st@cabag.ch>
+	* version 2.1.1
+	* fixed issue regarding outlogged be user which wasn't reconnected
+
+2011-03-21 Tizian Schmidlin <st@cabag.ch>
+	* version 2.1.0 Modified
+	* so that be sessions last 24h
+
+2011-03-16 Tizian Schmidlin <st@cabag.ch>
+	* removed possibility to set the session dure longer because it's bad for expired backend security tokens
+	* rewind version number to 2.0.1
+
+2011-03-02 Tizian Schmidlin <st@cabag.ch>
+	* version 2.0.2
+	* added possiblity to let the session time dure longer than normal by TS option daysUntilInvalid = 30
+
 2011-02-17  Christopher Stelmaszyk  <chrissitopher@gmx.de>
 
 	* !!! Fixed bug #9126: Include Code for TypoScript Setup as Static File
