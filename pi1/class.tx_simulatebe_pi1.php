@@ -22,6 +22,10 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+
+use TYPO3\CMS\Core\Authentication\AbstractUserAuthentication;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Plugin 'Simulate BE-session' for the extension 'simulatebe'.
  *
@@ -29,15 +33,7 @@
  * @author	Sonja Scholz <ss@cabag.ch>
  * @author	Jonas Dübi <jd@cabag.ch>
  */
-if (version_compare(TYPO3_branch, '6.2', '<')) {
-	require_once(PATH_t3lib . 'class.t3lib_userauth.php');
-	require_once(PATH_t3lib . 'class.t3lib_userauthgroup.php');
-	require_once(PATH_t3lib . 'class.t3lib_beuserauth.php');
-	require_once(PATH_tslib . 'class.tslib_feuserauth.php');
-	require_once(PATH_tslib . 'class.tslib_pibase.php');
-}
-
-class tx_simulatebe_pi1 extends t3lib_userAuth {
+class tx_simulatebe_pi1 extends AbstractUserAuthentication {
 	var $prefixId = "tx_simulatebe_pi1";		// Same as class name
 	var $scriptRelPath = "pi1/class.tx_simulatebe_pi1.php";	// Path to this script relative to the extension dir.
 	var $extKey = "simulatebe";	// The extension key.
@@ -59,12 +55,17 @@ class tx_simulatebe_pi1 extends t3lib_userAuth {
 			$GLOBALS['TSFE']->loginUser = 1;
 		}
 		
-		if(!$_COOKIE['simulatebe']) {
+		if (empty($conf['cookieName'])) {
+			$conf['cookieName'] = 'simulatebe';
+		}
+		$beCookieName = \TYPO3\CMS\Core\Authentication\BackendUserAuthentication::getCookieName();
+
+		if(!$_COOKIE[$conf['cookieName']]) {
 			// check if be user is logged in 
 			// $GLOBALS['TSFE']->beUserLogin is 0 if user has no access to current page but is logged in to the BE, this leads to a endless loop
 			$BE_USER='';
-			if ($_COOKIE['be_typo_user']) {         // If the backend cookie is set, we proceed and checks if a backend user is logged in.
-				$BE_USER = t3lib_div::makeInstance('t3lib_tsfeBeUserAuth');     // New backend user object
+			if ($_COOKIE[$beCookieName]) {         // If the backend cookie is set, we proceed and checks if a backend user is logged in.
+				$BE_USER = GeneralUtility::makeInstance('TYPO3\\CMS\\Backend\\FrontendBackendUserAuthentication');     // New backend user object
 				$BE_USER->OS = TYPO3_OS;
 				$BE_USER->lockIP = $TYPO3_CONF_VARS['BE']['lockIP'];
 				$BE_USER->start();                      // Object is initialized
@@ -77,10 +78,10 @@ class tx_simulatebe_pi1 extends t3lib_userAuth {
 			// CAB
 			// Original code:
 			// if ((!isset($_COOKIE['simulatebe'])) && $conf['allow'] && $GLOBALS['TSFE']->loginUser
-			// && intval($GLOBALS['TSFE']->fe_user->user['tx_simulatebe_beuser']) && (t3lib_div::_GP('logintype')=='login')) {
+			// && intval($GLOBALS['TSFE']->fe_user->user['tx_simulatebe_beuser']) && (GeneralUtility::_GP('logintype')=='login')) {
 			if (!$backendUserLoggedIn && $conf['allow'] && $GLOBALS['TSFE']->loginUser) {
-				$be_user_obj = t3lib_div::makeInstance('t3lib_beUserAuth');
-	
+				$be_user_obj = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Authentication\\BackendUserAuthentication');
+
 					// CAB - SS: 28.04.10 - also look for a be_user where the feusername field contains the current username
 				if (intval($GLOBALS['TSFE']->fe_user->user['tx_simulatebe_beuser'])) {
 						// Let's get the record for the backend user we want to simulate in the frontend.
@@ -141,46 +142,58 @@ class tx_simulatebe_pi1 extends t3lib_userAuth {
 					// Setting the cookies
 					// Also check if the session array isset
 				if (intval($GLOBALS['TYPO3_DB']->sql_affected_rows()) || is_array($sessionRow)) {
-					setcookie($be_user_obj->name, $GLOBALS['TSFE']->fe_user->user['ses_id'], 0, '/');
-					setcookie('simulatebe', $GLOBALS['TSFE']->fe_user->user['ses_id'], 0, '/');
+					setcookie(
+						$be_user_obj->name,
+						$GLOBALS['TSFE']->fe_user->user['ses_id'],
+						0,
+						'/',
+						$this->getCookieDomain()
+					);
+					setcookie(
+						$conf['cookieName'],
+						$GLOBALS['TSFE']->fe_user->user['ses_id'],
+						0,
+						'/',
+						$this->getCookieDomain()
+					);
 	
 						// Reload
 					if($extConf['simulatebeOnLinkParameter'] && !empty($_GET[$extConf['simulatebeLinkParameter']])) {
 						header('Location: /typo3');
 					} else {
 					//reloads
-						header("Location: ".t3lib_div::getIndpEnv("TYPO3_REQUEST_URL"));
+						header("Location: " . GeneralUtility::getIndpEnv("TYPO3_REQUEST_URL"));
 					}
 				}
 			}
 		}
 
 			// Logout
-			// CAB: use $_COOKIE[be_typo_user] instead of $_COOKIE[simulatebe]
-		if ((isset($_COOKIE['be_typo_user']) && ($_COOKIE['simulatebe']==$_COOKIE['be_typo_user']))
+		if ((isset($_COOKIE[$beCookieName]) && ($_COOKIE[$conf['cookieName']] == $_COOKIE[$beCookieName]))
 			&& $conf['allow']
 			&& (!$GLOBALS['TSFE']->loginUser)
-			&& (t3lib_div::_GP('logintype')=='logout')) {
-
-            $be_user_obj = t3lib_div::makeInstance('t3lib_beUserAuth');
-
-			$GLOBALS['TYPO3_DB']->exec_DELETEquery(
-					$be_user_obj->session_table,
-					'ses_id = "' . $GLOBALS['TYPO3_DB']->quoteStr($_COOKIE['be_typo_user'], $be_user_obj->session_table) . '"
-						AND ses_name = "' . $GLOBALS['TYPO3_DB']->quoteStr($be_user_obj->name, $be_user_obj->session_table) . '"'
-					);
-
-			setcookie($be_user_obj->name, '', 0, '/');
-			setcookie('simulatebe', '', 0, '/');
-			header('Location: ' . t3lib_div::getIndpEnv('TYPO3_REQUEST_URL'));
+			&& (GeneralUtility::_GP('logintype')=='logout')) {
+			$this->logout();
 		}
 		
-		if($_COOKIE['simulatebe'] && $_COOKIE['simulatebe'] != $_COOKIE['be_typo_user']) {
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow('ses_id', 'be_sessions', "ses_id = '".$_COOKIE['be_typo_user']."' ");
+		if($_COOKIE[$conf['cookieName']] && $_COOKIE[$conf['cookieName']] != $_COOKIE[$beCookieName]) {
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow('ses_id', 'be_sessions', 'ses_id = \'' . $_COOKIE[$beCookieName] . '\' ');
 			if(empty($res)) {
-				setcookie('be_typo_user', '',0,'/');
-				setcookie('simulatebe', '',0,'/');
-				header("Location: ".t3lib_div::getIndpEnv("TYPO3_REQUEST_URL"));
+				setcookie(
+					$beCookieName,
+					'',
+					0,
+					'/',
+					$this->getCookieDomain()
+				);
+				setcookie(
+					$conf['cookieName'],
+					'',
+					0,
+					'/',
+					$this->getCookieDomain()
+				);
+				header("Location: " . GeneralUtility::getIndpEnv("TYPO3_REQUEST_URL"));
 			}
 		}
 	}
@@ -208,16 +221,16 @@ class tx_simulatebe_pi1 extends t3lib_userAuth {
 				// Get the domain to be used for the cookie (if any):
 			$cookieDomain = $this->getCookieDomain();
 				// If no cookie domain is set, use the base path:
-			$cookiePath = ($cookieDomain ? '/' : t3lib_div::getIndpEnv('TYPO3_SITE_PATH'));
+			$cookiePath = ($cookieDomain ? '/' : GeneralUtility::getIndpEnv('TYPO3_SITE_PATH'));
 				// If the cookie lifetime is set, use it:
 			$cookieExpire = ($isRefreshTimeBasedCookie ? $GLOBALS['EXEC_TIME'] + $this->lifetime : 0);
 				// Use the secure option when the current request is served by a secure connection:
-			$cookieSecure = (bool) $settings['cookieSecure'] && t3lib_div::getIndpEnv('TYPO3_SSL');
+			$cookieSecure = (bool) $settings['cookieSecure'] && GeneralUtility::getIndpEnv('TYPO3_SSL');
 				// Deliver cookies only via HTTP and prevent possible XSS by JavaScript:
 			$cookieHttpOnly = (bool) $settings['cookieHttpOnly'];
 
 				// Do not set cookie if cookieSecure is set to "1" (force HTTPS) and no secure channel is used:
-			if ((int) $settings['cookieSecure'] !== 1 || t3lib_div::getIndpEnv('TYPO3_SSL')) {
+			if ((int) $settings['cookieSecure'] !== 1 || GeneralUtility::getIndpEnv('TYPO3_SSL')) {
 				setcookie(
 					$this->name,
 					$this->id,
@@ -228,7 +241,7 @@ class tx_simulatebe_pi1 extends t3lib_userAuth {
 					$cookieHttpOnly
 				);
 			} else {
-				throw new t3lib_exception(
+				throw new \TYPO3\CMS\Core\Exception(
 					'Cookie was not set since HTTPS was forced in $TYPO3_CONF_VARS[SYS][cookieSecure].',
 					1254325546
 				);
@@ -236,9 +249,43 @@ class tx_simulatebe_pi1 extends t3lib_userAuth {
 
 			if ($this->writeDevLog) {
 				$devLogMessage = ($isRefreshTimeBasedCookie ? 'Updated Cookie: ' : 'Set Cookie: ') . $this->id;
-				t3lib_div::devLog($devLogMessage . ($cookieDomain ? ', ' . $cookieDomain : ''), 't3lib_userAuth');
+				GeneralUtility::devLog($devLogMessage . ($cookieDomain ? ', ' . $cookieDomain : ''), 'AbstractUserAuthentication');
 			}
 		}
+	}
+
+	/**
+	 * Log backend user off if the frontend user gets logged out.
+	 *
+	 * @return void
+	 */
+	public function logout()
+	{
+		$be_user_obj = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Authentication\\BackendUserAuthentication');
+
+		$GLOBALS['TYPO3_DB']->exec_DELETEquery(
+			$be_user_obj->session_table,
+			'ses_id = "' . $GLOBALS['TYPO3_DB']->quoteStr($_COOKIE[$beCookieName], $be_user_obj->session_table) . '"'
+			. ' AND ses_name = "' . $GLOBALS['TYPO3_DB']->quoteStr($be_user_obj->name, $be_user_obj->session_table) . '"'
+		);
+
+		if (empty($conf['cookieName'])) {
+			$conf['cookieName'] = 'simulatebe';
+		}
+		setcookie(
+			$be_user_obj->name,
+			'',
+			0,
+			'/',
+			$this->getCookieDomain()
+		);
+		setcookie(
+			$conf['cookieName'],
+			'',
+			0,
+			'/',
+			$this->getCookieDomain()
+		);
 	}
 }
 
@@ -246,5 +293,3 @@ class tx_simulatebe_pi1 extends t3lib_userAuth {
 if (defined('TYPO3_MODE') && isset($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/simulatebe/pi1/class.tx_simulatebe_pi1.php'])) {
 	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/simulatebe/pi1/class.tx_simulatebe_pi1.php']);
 }
-
-?>

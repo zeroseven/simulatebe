@@ -1,6 +1,7 @@
 # Activate simulatebe
 plugin.tx_simulatebe_pi1 {
     allow = 1
+    cookieName = simulatebe
 }
 
 # admin panel ensures that the BE_USER is loaded
