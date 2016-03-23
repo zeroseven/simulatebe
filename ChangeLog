@@ -1,3 +1,18 @@
+2016-03-23  Christopher Stelmaszyk  <chrissitopher@gmx.de>
+
+	* Converted the documentation to reST
+
+Added patches by Gerrit Mohrmann and Christian Weiske
+
+	* Depends on TYPO3 6.2 or higher
+	* Use core namespaces functions
+	* Remove require statements.
+	* Remove deprecated usage for feInterface
+	* Remove deprecated loadTCA()
+	* Move TCA to Configuration/TCA/Overrides/
+	* Don't hardcode be cookie name
+	* FEATURE: Make simulatebe cookie name editable
+
 2014-04-29 Nils Blattner <nb@cabag.ch>
 	* version 2.2.0
 	* [FEATURE] added 6.2 compatibility
