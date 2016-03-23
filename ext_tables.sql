@@ -9,5 +9,5 @@ CREATE TABLE fe_users (
 # Table structure for table 'be_users'
 #
 CREATE TABLE be_users (
-	tx_simulatebe_feuserusername tinytext DEFAULT '' NOT NULL
+	tx_simulatebe_feuserusername tinytext NOT NULL
 );
