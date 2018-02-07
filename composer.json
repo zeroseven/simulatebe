@@ -1,0 +1,41 @@
+{
+    "name": "cabag/ext-simulatebe",
+    "type": "typo3-cms-extension",
+    "version": "3.0.0-dev",
+    "description": "BE Login Simulation for FE Users\n\nSimulates BE Login for FE Users. With this extension you can grant Frontend Users Backend User Rights. This means that, if a Frontend User logs into the Frontend and he has the proper rights, the Edit Icons will be displayed allowing him to edit the Content.",
+    "authors": [
+        {
+            "name": "Sonja Scholz",
+            "role": "Product Owner"
+        },
+        {
+            "name": " Jonas Felix",
+            "role": "Developer"
+        },
+        {
+            "name": " Tizian Schmidlin",
+            "role": "Developer"
+        }
+    ],
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "typo3/cms-core": ">=7.6 || <=8.7",
+        "php": ">=5.6 || <=0.0.0"
+    },
+    "replace": {
+        "simulatebe": "self.version"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cabag\\Simulatebe\\": "Classes/"
+        }
+    },
+   "extra": {
+  	"typo3/class-alias-loader": {
+  		"class-alias-maps": [
+  			"Migrations/Code/ClassAliasMap.php"
+  		]
+  	}
+  }
+
+}
