@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'Simulates BE Login for FE Users. With this extension you can grant Frontend Users Backend User Rights. This means that, if a Frontend User logs into the Frontend and he has the proper rights, the Edit Icons will be displayed allowing him to edit the Content.',
 	'category' => 'fe',
 	'shy' => 0,
-	'version' => '2.3.0',
+	'version' => '3.0.0',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
@@ -32,9 +32,8 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_company' => 'cab services ag',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '6.2.0-7.99.99',
-			'php' => '5.3.0-0.0.0',
-			'cms' => '',
+			'typo3' => '7.6.0-8.7.99',
+			'php' => '5.6.0-0.0.0',
 		),
 		'conflicts' => array(
 		),
