@@ -1,10 +1,10 @@
 <?php
-+defined('TYPO3_MODE') or die();
+defined('TYPO3_MODE') or die();
 
 // Add Plugin to Static Template #43
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPItoST43(
 	$_EXTKEY,
-	'pi1/class.tx_simulatebe_pi1.php',
+	'Classes/Controller/Pi1.php',
 	'_pi1',
 	'',
 	0
