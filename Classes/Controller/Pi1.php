@@ -204,21 +204,18 @@ class Pi1 extends AbstractUserAuthentication {
 		if($_COOKIE[$conf['cookieName']] && $_COOKIE[$conf['cookieName']] != $_COOKIE[$beCookieName]) {
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow('ses_id', 'be_sessions', 'ses_id = \'' . $_COOKIE[$beCookieName] . '\' ');
 			if(empty($res)) {
-				setcookie(
+				$this->setCookie(
 					$beCookieName,
 					'',
-					0,
-					'/',
-					$this->getCookieDomain()
+					0
 				);
-				setcookie(
+				$this->setCookie(
 					$conf['cookieName'],
 					'',
-					0,
-					'/',
-					$this->getCookieDomain()
+					0
 				);
 				header("Location: " . GeneralUtility::getIndpEnv("TYPO3_REQUEST_URL"));
+				die;
 			}
 		}
 	}
