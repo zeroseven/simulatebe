@@ -117,6 +117,7 @@ class Pi1 extends AbstractUserAuthentication {
 			// && intval($GLOBALS['TSFE']->fe_user->user['tx_simulatebe_beuser']) && (GeneralUtility::_GP('logintype')=='login')) {
 			if (!$backendUserLoggedIn && $conf['allow'] && $GLOBALS['TSFE']->loginUser) {
 				$be_user_obj = GeneralUtility::makeInstance(BackendUserAuthentication::class);
+				$be_user_obj->lockIP = $GLOBALS['TYPO3_CONF_VARS']['BE']['lockIP'];
 
 					// CAB - SS: 28.04.10 - also look for a be_user where the feusername field contains the current username
 				if (intval($GLOBALS['TSFE']->fe_user->user['tx_simulatebe_beuser'])) {
