@@ -103,7 +103,7 @@ class Pi1 extends AbstractUserAuthentication {
 			if ($_COOKIE[$beCookieName]) {         // If the backend cookie is set, we proceed and checks if a backend user is logged in.
 				$BE_USER = GeneralUtility::makeInstance(FrontendBackendUserAuthentication::class);     // New backend user object
 				$BE_USER->OS = TYPO3_OS;
-				$BE_USER->lockIP = $GLOBALS['TYPO3_CONF_VARS'][['BE']['lockIP'];
+				$BE_USER->lockIP = $GLOBALS['TYPO3_CONF_VARS']['BE']['lockIP'];
 				$BE_USER->start();                      // Object is initialized
 				$BE_USER->unpack_uc('');
 				if ($BE_USER->user['uid'])      {
@@ -263,7 +263,7 @@ class Pi1 extends AbstractUserAuthentication {
 
 		$GLOBALS['TYPO3_DB']->exec_DELETEquery(
 			$this->beUserSessionTable,
-			'ses_id = \'' . $GLOBALS['TYPO3_DB']->quoteStr($_COOKIE[$beCookieName], $this->beUserSessionTable) . '\''
+			'ses_id = \'' . $GLOBALS['TYPO3_DB']->quoteStr($_COOKIE[BackendUserAuthentication::getCookieName()], $this->beUserSessionTable) . '\''
 			. ' AND ses_name = \'' . $GLOBALS['TYPO3_DB']->quoteStr($be_user_obj->name, $this->beUserSessionTable) . '\''
 		);
 
