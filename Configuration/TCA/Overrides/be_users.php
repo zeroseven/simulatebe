@@ -13,4 +13,4 @@ $tempColumns = array(
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('be_users', $tempColumns);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('be_users', '--div--;LLL:EXT:simulatebe/locallang_db.xml:be_users.tx_simulatebe,tx_simulatebe_feuserusername;;;;1-1-1');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('be_users', '--div--;LLL:EXT:simulatebe/locallang_db.xml:be_users.tx_simulatebe,tx_simulatebe_feuserusername');
