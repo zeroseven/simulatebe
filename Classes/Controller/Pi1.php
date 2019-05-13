@@ -158,10 +158,14 @@ class Pi1 extends AbstractUserAuthentication {
 						'ses_name' => $be_user_obj->name,
 						'ses_iplock' => $this->beuser['disableIPlock'] ?
 							'[DISABLED]' : $be_user_obj->ipLockClause_remoteIPNumber($be_user_obj->lockIP),
-						'ses_hashlock' => $GLOBALS['TSFE']->fe_user->user['ses_hashlock'],
 						'ses_userid' => $this->beuser[$be_user_obj->userid_column],
 						'ses_tstamp' => $GLOBALS['EXEC_TIME'] + max(intval($extConf['simulatebeFakeTimeout']), 0)
 				);
+
+                if (version_compare(TYPO3_branch, '8', '<')) {
+                    $insertFields['ses_hashlock'] = $GLOBALS['TSFE']->fe_user->user['ses_hashlock'];
+                }
+
 					// CAB - check if there already is an entry first
 				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 						'ses_id',
