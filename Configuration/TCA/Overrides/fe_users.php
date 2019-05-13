@@ -7,6 +7,7 @@ $tempColumns = array(
 		'label' => 'LLL:EXT:simulatebe/locallang_db.xml:fe_users.tx_simulatebe_beuser',
 		'config' => array(
 			'type' => 'select',
+			'renderType' => 'selectSingle',
 			'items' => array(
 				array('', 0),
 			),
@@ -20,4 +21,4 @@ $tempColumns = array(
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users', $tempColumns);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', '--div--;LLL:EXT:simulatebe/locallang_db.xml:fe_users.tx_simulatebe,tx_simulatebe_beuser;;;;1-1-1');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', '--div--;LLL:EXT:simulatebe/locallang_db.xml:fe_users.tx_simulatebe,tx_simulatebe_beuser');
