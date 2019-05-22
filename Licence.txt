@@ -1,6 +1,0 @@
-== Licensing ==
-
-The extension icon is retrieved from the "Silk" icon sets of Mark James, which can 
-be found at http://www.famfamfam.com/lab/icons/silk/. 
-This set is distributed under a Creative Commons Attribution 2.5 License. 
-The license text can be found at http://creativecommons.org/licenses/by/2.5/. 
