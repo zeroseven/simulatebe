@@ -57,12 +57,6 @@ class BackendUserSimulator implements MiddlewareInterface
             return $handler->handle($request);
         }
 
-        // if backend user is already simulated
-        // then do not try to simulate again
-        // otherwise the user cannot log off the backend anymore
-        if ($request->getCookieParams()[$this->configuration->getCookieName()]) {
-            return $handler->handle($request);
-        }
 
         $tempBackendUserAuthentication = GeneralUtility::makeInstance(BackendUserAuthentication::class);
         $backendCookieName = $tempBackendUserAuthentication->name;
@@ -80,15 +74,30 @@ class BackendUserSimulator implements MiddlewareInterface
                 && $request->getCookieParams()[$backendCookieName] === $request->getCookieParams()[$simulateBeCookieName]
             ) {
                 $response = $handler->handle($request);
+
+                if (!$GLOBALS['BE_USER'] instanceof BackendUserAuthentication) {
+                    $GLOBALS['BE_USER'] = GeneralUtility::makeInstance(BackendUserAuthentication::class);
+                    $GLOBALS['BE_USER']->start();
+                }
+
                 $GLOBALS['BE_USER']->logoff();
 
-                return new RedirectResponse(
+                $response = new RedirectResponse(
                     $request->getUri(),
                     307,
                     $response->getHeaders()
                 );
+                $response = $this->withSessionCookie($response,$this->configuration->getCookieName(),'');
+                return $response;
             }
 
+            return $handler->handle($request);
+        }
+
+        // if backend user is already simulated
+        // then do not try to simulate again
+        // otherwise the user cannot log off the backend anymore
+        if ($request->getCookieParams()[$this->configuration->getCookieName()]) {
             return $handler->handle($request);
         }
 
