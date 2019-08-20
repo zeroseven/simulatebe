@@ -20,9 +20,9 @@
 	"license": "GPL-2.0-or-later",
 	"require": {
 		"php": ">=7.2",
-		"typo3/cms-backend": "^9.5",
-		"typo3/cms-core": "^9.5",
-		"typo3/cms-felogin": "^9.5"
+		"typo3/cms-backend": "^9.5.9",
+		"typo3/cms-core": "^9.5.9",
+		"typo3/cms-felogin": "^9.5.9"
 	},
 	"autoload": {
 		"psr-4": {
